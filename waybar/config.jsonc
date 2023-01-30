@@ -1,0 +1,119 @@
+{
+    // ---bar--- //
+    "layer": "top",
+    "position": "top",
+    "modules-left": ["battery", "clock"],
+    "modules-center": ["wlr/workspaces", "hyprland/window", "tray"],
+    "modules-right": ["pulseaudio","pulseaudio#microphone","network","network#ethernet"],
+
+    // ---modules--- //
+    // battery
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+            "discharging": 99,
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{icon} {capacity}% - {power} W",
+        "format-warning": "{icon} {capacity}%",
+        "format-critical": "!{icon} {capacity}%",
+        "format-icons": [" ", " ", " ", " ", " "],
+        "format-time": "{H}h {M}m",
+        "tooltip": true,
+        "tooltip-format": "{capacity}%\n{power} W\n{time}",
+        "interval": 5
+    },
+    // time and date
+    "clock": {
+        "format": "{:%A, %B %d - %T}",
+        "timezones":["", "Asia/Jakarta"],
+        "tooltip-format": "{calendar}\n\n{:%Z%n%d/%m/%Y%n%T %p}",
+        "interval": 1
+    },
+    // workspaces
+    "wlr/workspaces": {
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons":{
+            "1":"I",
+            "2":"II",
+            "3":"III",
+            "4":"IV",
+            "5":"V",
+            "6":"VI",
+            "7":"VII",
+            "8":"VIII",
+            "9":"IX",
+            "91":"X"
+        }
+    },
+    // active window name
+    "hyprland/window": {
+        "format": "󱂬 {}",
+        "rewrite": {
+            "(^.*) — LibreWolf": "$1",
+            // shhhh, don't tell anyone :)
+            "(^Watch) (.*) full(.*)SFlix(.*$)":"SFlix - $2",
+            "(^SFlix.*$)":"SFlix",
+            "(^.*) for (.*)(\\s\\|.*) sflix(.*$)":"SFlix search: $2"
+        },
+        "max-length": 60
+    },
+    // tray
+    "tray": {
+        "icon-size": 10,
+        "spacing": 10
+    },
+    // speakers/headphones
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰸈 muted",
+        "tooltip": false,
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": " ",
+            "default": [" ", " ", "墳 ", " "]
+        },
+        // default value fucks up scroll-step
+        "smooth-scrolling-threshold": 1
+    },
+    // microphone
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " muted",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5,
+        "smooth-scrolling-threshold": 1
+    },
+    // wifi
+    "network": {
+        "interface": "wlp3s0",
+        "format": "󰤩 {ifname}",
+        "format-wifi": "{icon} {essid}",
+        "format-disconnected": "󰤮 {ifname}",
+        "format-icons": ["󰤯 ","󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
+        "tooltip-format": "{ifname}",
+        "tooltip-format-wifi": "interface: {ifname}\nconnection: wifi\nnetwork: {essid}\nsignal strength: ({signalStrength}%)",
+        "tooltip-format-disconnected": "interface: {ifname}\nconnection: disconnected",
+        "on-click": "kitty -- nmtui"
+    },
+    // ethernet
+    "network#ethernet": {
+        "interface": "eno1",
+        "format": " {ifname}",
+        "format-ethernet": " {essid}",
+        "format-disconnected": " {ifname}",
+        "tooltip-format": "{ifname}",
+        "tooltip-format-ethernet": "interface: {ifname}\nconnection: ethernet\nnetwork: {essid}",
+        "tooltip-format-disconnected": "interface: {ifname}\nconnection: disconnected",
+        "on-click": "kitty -- nmtui"
+    }
+}
